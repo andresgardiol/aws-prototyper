@@ -5,12 +5,16 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import {AddNodeTool} from "./tools/AddNodeTool";
 
-export function ToolBox() {
+export function ToolBox({onClickAddNode}) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
     function handleDrawerToggle() {
         setOpen(!open);
+    }
+
+    function handleClickAddNode(node) {
+        onClickAddNode(node);
     }
 
 
@@ -33,7 +37,7 @@ export function ToolBox() {
                 </div>
                 <Divider/>
                 <List>
-                    <AddNodeTool/>
+                    <AddNodeTool onClickAddNode={handleClickAddNode}/>
                 </List>
             </Drawer>
         </>

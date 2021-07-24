@@ -14,11 +14,16 @@ export function Graph() {
         });
     }, []);
 
+    function handleClickAddNode(node) {
+        const newNode = createNode({nodeName: 'basic/const',yPos:300, xPos:300});
+        graph.add(newNode);
+    }
+
     return (
         <>
             <canvas id="editor-canvas" width={Math.max(100, width)} height={Math.max(100, height)} tabIndex={10}
                     style={{background: "#111111", outline: 'none', borderBottom: '1px solid #666666'}}/>
-            <ToolBox/>
+            <ToolBox onClickAddNode={handleClickAddNode}/>
         </>
     );
 }
@@ -29,19 +34,6 @@ function mountGraph(graph) {
     graph.start();
     return canvas;
 }
-
-function addNodes(graph) {
-    let node_const = createNode({nodeName: "basic/const", xPos: 200, yPos: 200});
-    graph.add(node_const);
-    node_const.setValue(4.5);
-
-    let node_watch = createNode({nodeName: "basic/watch", xPos: 700, yPos: 200});
-
-    graph.add(node_watch);
-
-    node_const.connect(0, node_watch, 0);
-}
-
 
 function createNode({nodeName, xPos, yPos}) {
     let node_const = LiteGraph.createNode(nodeName);

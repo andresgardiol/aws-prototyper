@@ -2,7 +2,7 @@ import {useState} from "react";
 import {ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
-export function AddNodeTool() {
+export function AddNodeTool({onClickAddNode}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const openAddNodes = Boolean(anchorEl);
 
@@ -10,8 +10,13 @@ export function AddNodeTool() {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    function closeMenu() {
         setAnchorEl(null);
+    }
+
+    const handleClickNode = (node) => {
+        onClickAddNode(node)
+        closeMenu();
     };
     return (
         <>
@@ -22,15 +27,15 @@ export function AddNodeTool() {
             <Menu id="long-menu"
                   keepMounted
                   open={openAddNodes}
-                  onClose={handleClose}
+                  onClose={closeMenu}
                   anchorEl={anchorEl}
                   anchorOrigin={{
                       vertical: 'bottom',
                       horizontal: 'right',
                   }}>
-                <MenuItem onClick={handleClose}>Lambda</MenuItem>
-                <MenuItem onClick={handleClose}>API Gateway</MenuItem>
-                <MenuItem onClick={handleClose}>DynamoDB</MenuItem>
+                {["Lambda", "API Gateway", "DynamoDB"].map((node, index) => {
+                    return (<MenuItem key={node} onClick={() => handleClickNode(node)}>{node}</MenuItem>);
+                })}
             </Menu>
         </>
     );

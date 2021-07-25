@@ -1,42 +1,29 @@
 import {useEffect, useLayoutEffect, useState} from "react";
-import {LGraphCanvas, LiteGraph} from "litegraph.js";
-import {ToolBox} from "../editor/ToolBox";
+import {useDispatch} from "react-redux";
+import {canvas, createCanvas} from "./state/graphSlice";
 
 
 export function Graph() {
-    let [graph] = useState(new LiteGraph.LGraph());
+    const dispatch = useDispatch();
     let [width, height] = useWindowSize();
+
     useEffect(() => {
-        const canvas = mountGraph(graph);
+        dispatch(createCanvas());
+    }, [dispatch]);
+
+    useEffect(() => {
         window.addEventListener("resize", function () {
             canvas.resize();
         });
-    }, []);
+    }, [])
 
-    function handleClickAddNode(node) {
-        const newNode = createNode({nodeName: node, yPos: 300, xPos: 300});
-        graph.add(newNode);
-    }
 
     return (
         <>
             <canvas id="editor-canvas" width={Math.max(100, width)} height={Math.max(100, height)} tabIndex={10}
                     style={{background: "#111111", outline: 'none', borderBottom: '1px solid #666666'}}/>
-            <ToolBox onClickAddNode={handleClickAddNode}/>
         </>
     );
-}
-
-function mountGraph(graph) {
-    const canvas = new LGraphCanvas("#editor-canvas", graph);
-    graph.start();
-    return canvas;
-}
-
-function createNode({nodeName, xPos, yPos}) {
-    let node_const = LiteGraph.createNode(nodeName);
-    node_const.pos = [xPos, yPos];
-    return node_const;
 }
 
 function useWindowSize() {

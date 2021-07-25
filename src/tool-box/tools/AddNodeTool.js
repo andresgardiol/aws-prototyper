@@ -1,8 +1,12 @@
 import {useState} from "react";
 import {ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import {useDispatch} from "react-redux";
+import {addNode} from "../../graph/state/graphSlice";
+import {createNode} from "../../graph/utils/graphUtils";
 
 export function AddNodeTool({onClickAddNode}) {
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
     const openAddNodes = Boolean(anchorEl);
 
@@ -15,7 +19,8 @@ export function AddNodeTool({onClickAddNode}) {
     }
 
     const handleClickNode = (node) => {
-        onClickAddNode(node)
+        const newNode = createNode({nodeName: node, xPos: 200, yPos: 200});
+        dispatch(addNode(newNode));
         closeMenu();
     };
     return (
@@ -29,12 +34,11 @@ export function AddNodeTool({onClickAddNode}) {
                   open={openAddNodes}
                   onClose={closeMenu}
                   anchorEl={anchorEl}
-                  anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                  }}>
+                  getContentAnchorEl={null}
+                  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}}
+            >
                 {["Lambda", "API Gateway", "math/sum"].map((node, index) => {
-                    return (<MenuItem key={node} onClick={() => handleClickNode(node)}>{node}</MenuItem>);
+                    return (<MenuItem key={node} onClick={() => handleClickNode('basic/watch')}>{node}</MenuItem>);
                 })}
             </Menu>
         </>

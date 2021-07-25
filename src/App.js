@@ -1,9 +1,10 @@
 import './App.css';
-import {Graph} from "./editor/Graph";
+import {Graph} from "./graph/Graph";
 
 
 function App() {
     return (
+
         <div className="App">
           <Graph/>
         </div>

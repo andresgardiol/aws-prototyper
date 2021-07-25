@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect, useState} from "react";
 import {LGraphCanvas, LiteGraph} from "litegraph.js";
-import {ToolBox} from "./ToolBox";
+import {ToolBox} from "../editor/ToolBox";
 
 
 export function Graph() {
@@ -29,8 +29,6 @@ export function Graph() {
 
 function mountGraph(graph) {
     const canvas = new LGraphCanvas("#editor-canvas", graph);
-
-    // graph.registerNodeType("basic/sum", Sum);
     graph.start();
     return canvas;
 }

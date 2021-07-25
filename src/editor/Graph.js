@@ -1,11 +1,10 @@
-import './Graph.css';
 import {useEffect, useLayoutEffect, useState} from "react";
-import {LGraph, LGraphCanvas, LiteGraph} from "litegraph.js";
+import {LGraphCanvas, LiteGraph} from "litegraph.js";
 import {ToolBox} from "./ToolBox";
 
 
 export function Graph() {
-    let [graph] = useState(new LGraph());
+    let [graph] = useState(new LiteGraph.LGraph());
     let [width, height] = useWindowSize();
     useEffect(() => {
         const canvas = mountGraph(graph);
@@ -15,7 +14,7 @@ export function Graph() {
     }, []);
 
     function handleClickAddNode(node) {
-        const newNode = createNode({nodeName: 'basic/const',yPos:300, xPos:300});
+        const newNode = createNode({nodeName: node, yPos: 300, xPos: 300});
         graph.add(newNode);
     }
 
@@ -31,6 +30,7 @@ export function Graph() {
 function mountGraph(graph) {
     const canvas = new LGraphCanvas("#editor-canvas", graph);
 
+    // graph.registerNodeType("basic/sum", Sum);
     graph.start();
     return canvas;
 }

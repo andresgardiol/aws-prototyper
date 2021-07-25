@@ -13,11 +13,6 @@ export function ToolBox({onClickAddNode}) {
         setOpen(!open);
     }
 
-    function handleClickAddNode(node) {
-        onClickAddNode(node);
-    }
-
-
     return (
         <>
             <Drawer variant="permanent" className={clsx(classes.drawer, {
@@ -37,7 +32,7 @@ export function ToolBox({onClickAddNode}) {
                 </div>
                 <Divider/>
                 <List>
-                    <AddNodeTool onClickAddNode={handleClickAddNode}/>
+                    <AddNodeTool onClickAddNode={(node) => onClickAddNode(node)}/>
                 </List>
             </Drawer>
         </>

@@ -33,7 +33,7 @@ export function AddNodeTool({onClickAddNode}) {
                       vertical: 'bottom',
                       horizontal: 'right',
                   }}>
-                {["Lambda", "API Gateway", "DynamoDB"].map((node, index) => {
+                {["Lambda", "API Gateway", "math/sum"].map((node, index) => {
                     return (<MenuItem key={node} onClick={() => handleClickNode(node)}>{node}</MenuItem>);
                 })}
             </Menu>

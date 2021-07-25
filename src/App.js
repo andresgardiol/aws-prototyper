@@ -1,11 +1,11 @@
 import './App.css';
-import {Editor} from "./editor/Editor";
+import {Graph} from "./editor/Graph";
 
 
 function App() {
     return (
         <div className="App">
-          <Editor/>
+          <Graph/>
         </div>
     );
 }

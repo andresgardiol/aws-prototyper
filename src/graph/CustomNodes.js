@@ -3,8 +3,8 @@ import Lambda from "./nodes/Aws/Lambda";
 import DynamoDB from "./nodes/Aws/DynamoDB";
 
 export const customNodes = [
-    {name: "aws/lambda", node: Lambda, title: "Lambda"},
-    {name: "aws/dynamodb", node: DynamoDB, title: "DynamoDB"}
+    {name: "aws/lambda", node: Lambda, title: "Lambda", module: "aws"},
+    {name: "aws/dynamodb", node: DynamoDB, title: "DynamoDB", module: "aws"}
 ];
 
 export function LoadCustomNodes() {

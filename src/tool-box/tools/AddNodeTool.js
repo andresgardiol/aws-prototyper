@@ -1,8 +1,13 @@
 import {useState} from "react";
 import {ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import {useDispatch} from "react-redux";
+import {addNode} from "../../graph/state/graphSlice";
+import {customNodes} from "../../graph/CustomNodes";
+import {createNode} from "../../graph/utils/graphUtils";
 
-export function AddNodeTool({onClickAddNode}) {
+export function AddNodeTool() {
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
     const openAddNodes = Boolean(anchorEl);
 
@@ -15,7 +20,8 @@ export function AddNodeTool({onClickAddNode}) {
     }
 
     const handleClickNode = (node) => {
-        onClickAddNode(node)
+        const newNode = createNode(node);
+        dispatch(addNode(newNode));
         closeMenu();
     };
     return (
@@ -29,12 +35,12 @@ export function AddNodeTool({onClickAddNode}) {
                   open={openAddNodes}
                   onClose={closeMenu}
                   anchorEl={anchorEl}
-                  anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                  }}>
-                {["Lambda", "API Gateway", "math/sum"].map((node, index) => {
-                    return (<MenuItem key={node} onClick={() => handleClickNode(node)}>{node}</MenuItem>);
+                  getContentAnchorEl={null}
+                  anchorOrigin={{vertical: 'bottom', horizontal: 'right',}}
+            >
+                {customNodes.map((node, index) => {
+                    return (
+                        <MenuItem key={node.name} onClick={() => handleClickNode(node.name)}>{node.title}</MenuItem>);
                 })}
             </Menu>
         </>

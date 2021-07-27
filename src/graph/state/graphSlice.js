@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import LiteGraphJS from 'litegraph.js/build/litegraph.js';
-import {LoadCustomNodes} from "../LoadCustomNodes";
+import {LoadCustomNodes} from "../CustomNodes";
 
 export let graph = null;
 export let canvas = null;

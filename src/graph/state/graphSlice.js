@@ -1,17 +1,19 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {LGraph, LGraphCanvas} from "litegraph.js";
+import LiteGraphJS from 'litegraph.js/build/litegraph.js';
+import {LoadCustomNodes} from "../LoadCustomNodes";
 
-const graph = new LGraph();
+export let graph = null;
 export let canvas = null;
 
 export const graphSlice = createSlice({
     name: 'graph',
-    initialState: {
-    },
+    initialState: {},
     reducers: {
-        createCanvas: state => {
-            canvas = new LGraphCanvas("#editor-canvas", graph);
+        createCanvas: () => {
+            graph = new LiteGraphJS.LGraph();
+            canvas = new LiteGraphJS.LGraphCanvas("#editor-canvas", graph);
             graph.start();
+            LoadCustomNodes();
         },
         addNode: (state, action) => {
             graph.add(action.payload);

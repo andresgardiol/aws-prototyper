@@ -3,9 +3,9 @@ import {ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import {useDispatch} from "react-redux";
 import {addNode} from "../../graph/state/graphSlice";
-import {createNode} from "../../graph/utils/graphUtils";
+import LiteGraphJS from 'litegraph.js/build/litegraph.js';
 
-export function AddNodeTool({onClickAddNode}) {
+export function AddNodeTool() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
     const openAddNodes = Boolean(anchorEl);
@@ -19,7 +19,7 @@ export function AddNodeTool({onClickAddNode}) {
     }
 
     const handleClickNode = (node) => {
-        const newNode = createNode({nodeName: node, xPos: 200, yPos: 200});
+        const newNode = createNode(LiteGraphJS, {nodeName: node, xPos: 200, yPos: 200});
         dispatch(addNode(newNode));
         closeMenu();
     };
@@ -35,12 +35,18 @@ export function AddNodeTool({onClickAddNode}) {
                   onClose={closeMenu}
                   anchorEl={anchorEl}
                   getContentAnchorEl={null}
-                  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}}
+                  anchorOrigin={{vertical: 'bottom', horizontal: 'right',}}
             >
                 {["Lambda", "API Gateway", "math/sum"].map((node, index) => {
-                    return (<MenuItem key={node} onClick={() => handleClickNode('basic/watch')}>{node}</MenuItem>);
+                    return (<MenuItem key={node} onClick={() => handleClickNode('aws/lambda')}>{node}</MenuItem>);
                 })}
             </Menu>
         </>
     );
+}
+
+export function createNode(LiteGraphJS, {nodeName, xPos, yPos}) {
+    let node_const = LiteGraphJS.LiteGraph.createNode(nodeName);
+    node_const.pos = [xPos, yPos];
+    return node_const;
 }
